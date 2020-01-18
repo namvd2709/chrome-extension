@@ -1,0 +1,6 @@
+  {
+    "name": "Text Summary",
+    "version": "1.0",
+    "description": "Summarize text as a digest",
+    "manifest_version": 2
+  }
