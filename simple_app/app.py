@@ -1,20 +1,27 @@
-from flask import Flask
+from flask import Flask, render_template
 from predict import summarize
 from time import time
 from flask import jsonify, request
 import os
+
+
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+
+@app.route('/predict', methods=['POST'])
 def api_exec():
     if request.method == 'POST':
-        text = request.values.get('text')
+        text = request.form['message']
     else:
         text = request.args.get('text')
     if text == None:
-        print('Scoring Sample Description')
-        text = os.environ['SAMPLE_TEXT']
+        print('Summarizing Sample Description')
+        text = "This app is developed by Nam and ZZ for NUS HackNRoll 2020. We are trying to build the most awesome app."
 
     response = {'status': 'ok'}
     try:
@@ -36,4 +43,4 @@ def api_exec():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
